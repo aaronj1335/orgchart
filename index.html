@@ -1,68 +1,125 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
+<meta charset='utf-8'>
 <style>
 
-.link {
-  stroke: #ccc;
-}
+  body {
+    background-color: #eeeeee;
+    margin: 0;
+  }
 
-.node text {
-  pointer-events: none;
-  font: 10px sans-serif;
-}
+  .node text {
+    pointer-events: none;
+    font: 10px sans-serif;
+    text-anchor: middle;
+    text-transform: uppercase;
+    fill: white;
+  }
+
+  .info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 40px;
+  }
+
+  .info h1 {
+    margin: 0;
+    font-family: Georga, serif;
+    font-size: 50px;
+  }
+
+  .info p {
+    margin: -11px 0 0 15px;
+    text-transform: uppercase;
+    font: 11px Helvetica, sans;
+  }
 
 </style>
 <body>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script>
+  <div class=info>
+    <h1>Waterfall</h1>
 
-var width = 960,
-    height = 500
+    <p>organizational chart q4 2013</p>
+  </div>
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-var force = d3.layout.force()
-    .gravity(.05)
-    .distance(100)
-    .charge(-100)
-    .size([width, height]);
-
-d3.json("graph.json", function(error, json) {
-  force
-      .nodes(json.nodes)
-      .links(json.links)
-      .start();
-
-  var link = svg.selectAll(".link")
-      .data(json.links)
-    .enter().append("line")
-      .attr("class", "link");
-
-  var node = svg.selectAll(".node")
-      .data(json.nodes)
-    .enter().append("g")
-      .attr("class", "node")
-      .call(force.drag);
-
-  node.append("circle")
-      .attr("r", 20)
-      .attr("fill", "red");
-
-  node.append("text")
-      .attr("dx", 12)
-      .attr("dy", ".35em")
-      .text(function(d) { return d.name });
-
-  force.on("tick", function() {
-    link.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-
-    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-  });
-});
-
+  <script src='http://d3js.org/d3.v3.min.js'></script>
+  <script>
+    window.data = {
+      name: 'sechrest',
+      peeps: [
+        {
+          name: 'praveen',
+          team: 'engineering',
+          peeps: [
+            {
+              name: 'lon',
+              peeps: [
+                {name: 'aaron'},
+                {name: 'john'},
+                {name: 'fed'}
+              ]
+            },
+            {
+              name: 'vince',
+              peeps: [{name: 'ronak'}]
+            },
+            {name: 'joby'}
+          ]
+        },
+        {
+          name: 'rebecca',
+          team: 'product',
+          peeps: [
+            {
+              name: 'tina',
+              peeps: [
+                {name: 'knight', part: 'yea'},
+                {name: 'jasmine', part: 'yea'}
+              ]
+            },
+            {name: 'jessica'},
+            {name: 'christa'},
+            {name: 'kurt'}
+          ]
+        },
+        {
+          name: 'justin',
+          team: 'finance',
+          peeps: [
+            {
+              name: 'michael',
+              peeps: [{name: 'garret'}]
+            }
+          ]
+        },
+        {
+          name: 'rhodes',
+          team: 'design'
+        },
+        {
+          name: 'kane',
+          team: 'marketing',
+          peeps: [
+            {name: 'jenny'},
+            {name: 'corey'}
+          ]
+        },
+        {
+          name: 'silk',
+          team: 'bizdev'
+        },
+        {
+          name: 'vp of sales',
+          team: 'sales',
+          peeps: [
+            {
+              name: 'tom',
+              peeps: [{name: 'sam'}]
+            }
+          ]
+        }
+      ]
+    };
+  </script>
+  <script src=/index.js><</script>
 </script>
